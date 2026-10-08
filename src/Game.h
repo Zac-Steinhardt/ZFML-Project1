@@ -19,7 +19,11 @@ class Game
 
  private:
   sf::RenderWindow& window;
-  
+  sf::Sprite* character;
+  sf::Sprite* passport;
+  sf::Texture* anima = new sf::Texture[3];
+  sf::Texture* passports = new sf::Texture[3];
+  bool in_menu;
 
 };
 
