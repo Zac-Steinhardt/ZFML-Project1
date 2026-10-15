@@ -12,6 +12,7 @@ class Game
   bool init();
   void update(float dt);
   void render();
+  void newAnima();
   void mouseButtonPressed(const sf::Event::MouseButtonPressed* event);
   void mouseButtonReleased(const sf::Event::MouseButtonReleased* event);
   void keyPressed(const sf::Event::KeyPressed* event);
@@ -21,10 +22,13 @@ class Game
   sf::RenderWindow& window;
   sf::Sprite* character;
   sf::Sprite* passport;
-  sf::Texture* anima = new sf::Texture[3];
-  sf::Texture* passports = new sf::Texture[3];
+  sf::Texture* anima = new sf::Texture[4];
+  sf::Texture* passports = new sf::Texture[4];
+  sf::Texture* backgroun = new sf::Texture[3];
+  sf::Sprite* background;
   bool in_menu;
-
+  bool should_accept; 
+  bool anima_genetared;
 };
 
 #endif // SFML_GAME_H
