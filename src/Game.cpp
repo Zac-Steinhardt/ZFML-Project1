@@ -64,8 +64,21 @@ void Game::newAnima()
 	anima_genetared = true;
 }
 
+void Game::dragSprite(sf::Sprite* sprite)
+{
+	if (sprite != nullptr)
+	{
+		sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+		sf::Vector2f mouse_positionf = static_cast<sf::Vector2f>(mouse_position);
+		
+		sf::Vector2f drag_position = mouse_positionf - drag_offset;
+		sprite->setPosition({drag_position.x, drag_position.y});
+	}
+}
+
 void Game::update(float dt)
 {
+	dragSprite(dragged);
 	
 }
 
@@ -90,12 +103,13 @@ void Game::render()
 void Game::mouseButtonPressed(const sf::Event::MouseButtonPressed* event)
 {
 	
-	sf::Vector2i position = event->position;
-
-	
 	if (event->button == sf::Mouse::Button::Left)
 	{
-		
+		sf::Vector2f click = static_cast<sf::Vector2f>(event->position);
+		if (passport->getGlobalBounds().contains(click))
+		{
+			dragged = passport;
+		}
 	}
 }
 
@@ -105,7 +119,7 @@ void Game::mouseButtonReleased(const sf::Event::MouseButtonReleased* event)
 	
 	if (event->button == sf::Mouse::Button::Left)
 	{
-		
+		dragged = nullptr;
 	}
 }
 
