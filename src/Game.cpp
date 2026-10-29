@@ -30,13 +30,19 @@ bool Game::init()
   passports[2].loadFromFile("../Data/Images/Critter Crossing/ChicaP.png");
   passports[3].loadFromFile("../Data/Images/Critter Crossing/FoxyP.png");
   backgroun[0].loadFromFile("../Data/Images/Critter Crossing/office1.png");
+  acept->loadFromFile("../Data/Images/Critter Crossing/accept button.png");
+  deny->loadFromFile("../Data/Images/Critter Crossing/reject button.png");
   character = new sf::Sprite(anima[0]);
   passport = new sf::Sprite(passports[0]);
   background = new sf::Sprite(backgroun[0]);
+  Accept = new sf::Sprite(*acept);
+  Reject = new sf::Sprite(*deny);
   background->setTexture(backgroun[0]);
   background->setScale({1.6,1.7});
+  Accept->setPosition({ 100,100 });
+  Reject->setPosition({ 100,200 });
   newAnima();
-
+  side_menu = false;
   return true;
 }
 
@@ -96,13 +102,20 @@ void Game::render()
 			window.draw(*character);
 			window.draw(*passport);
 		}
+		if (side_menu == true)
+		{
+			window.draw(*Accept);
+			window.draw(*Reject);
+		}
 	}
 }
 
 
 void Game::mouseButtonPressed(const sf::Event::MouseButtonPressed* event)
 {
-	
+	sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+	sf::Vector2f mouse_positionf = static_cast<sf::Vector2f>(mouse_position);
+	drag_offset = mouse_positionf - passport->getPosition();
 	if (event->button == sf::Mouse::Button::Left)
 	{
 		sf::Vector2f click = static_cast<sf::Vector2f>(event->position);
@@ -110,6 +123,23 @@ void Game::mouseButtonPressed(const sf::Event::MouseButtonPressed* event)
 		{
 			dragged = passport;
 		}
+		if (Accept->getGlobalBounds().contains(click)&&passport->getGlobalBounds().contains(click))
+		{
+			passport_accepted = true;
+			passport_rejected = false;
+			std::cout << "YAAAAAAAAAAAAAAAY";
+		}
+		else if (Reject->getGlobalBounds().contains(click) && passport->getGlobalBounds().contains(click))
+		{
+			passport_accepted = false;
+			passport_rejected = true;
+			std::cout << "WOOOOOOOOOOOOOO";
+		}
+	}
+	if (event->button == sf::Mouse::Button::Right)
+	{
+		side_menu = true;
+		std::cout << "pressed";
 	}
 }
 
@@ -121,6 +151,7 @@ void Game::mouseButtonReleased(const sf::Event::MouseButtonReleased* event)
 	{
 		dragged = nullptr;
 	}
+
 }
 
 // Called by event polling when a KeyPressed event is found

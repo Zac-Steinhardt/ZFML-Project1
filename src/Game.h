@@ -35,6 +35,9 @@ class Game
   bool in_menu;
   bool should_accept; 
   bool anima_genetared;
+  bool side_menu;
+  bool passport_accepted;
+  bool passport_rejected;
   sf::Vector2f drag_offset;
 };
 
