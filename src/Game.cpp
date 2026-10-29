@@ -32,11 +32,15 @@ bool Game::init()
   backgroun[0].loadFromFile("../Data/Images/Critter Crossing/office1.png");
   acept->loadFromFile("../Data/Images/Critter Crossing/accept button.png");
   deny->loadFromFile("../Data/Images/Critter Crossing/reject button.png");
+  asap->loadFromFile("../Data/Images/Critter Crossing/accept.png");
+  rsap->loadFromFile("../Data/Images/Critter Crossing/reject.png");
   character = new sf::Sprite(anima[0]);
   passport = new sf::Sprite(passports[0]);
   background = new sf::Sprite(backgroun[0]);
   Accept = new sf::Sprite(*acept);
   Reject = new sf::Sprite(*deny);
+  Astamp = new sf::Sprite(*asap);
+  Rstamp = new sf::Sprite(*rsap);
   background->setTexture(backgroun[0]);
   background->setScale({1.6,1.7});
   Accept->setPosition({ 100,100 });
@@ -106,6 +110,14 @@ void Game::render()
 		{
 			window.draw(*Accept);
 			window.draw(*Reject);
+		}
+		if (passport_accepted == true)
+		{
+			window.draw(*Astamp);
+		}
+		if (passport_rejected == true)
+		{
+			window.draw(*Rstamp);
 		}
 	}
 }
