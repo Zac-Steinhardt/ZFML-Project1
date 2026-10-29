@@ -25,11 +25,15 @@ class Game
   sf::Sprite* passport;
   sf::Sprite* Accept;
   sf::Sprite* Reject;
+  sf::Sprite* Astamp;
+  sf::Sprite* Rstamp;
   sf::Texture* anima = new sf::Texture[4];
   sf::Texture* passports = new sf::Texture[4];
   sf::Texture* backgroun = new sf::Texture[3];
   sf::Texture* acept = new sf::Texture;
   sf::Texture* deny = new sf::Texture;
+  sf::Texture* asap = new sf::Texture;
+  sf::Texture* rsap = new sf::Texture;
   sf::Sprite* background;
   sf::Sprite* dragged = nullptr;
   bool in_menu;
